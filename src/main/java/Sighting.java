@@ -8,7 +8,7 @@ public class Sighting implements DatabaseManagement{
   private int id;
   private int animalid;
   private int rangerid;
-  private int location_d;
+  private int locationid;
   private Timestamp sighting_date;
   private String notes;
 
@@ -30,7 +30,7 @@ public class Sighting implements DatabaseManagement{
         .executeUpdate()
         .getKey();
   }
-
+}
 
   public int getId(){
     return this.id;
@@ -56,10 +56,10 @@ public class Sighting implements DatabaseManagement{
     return this.notes;
   }
 
-  public String getRangerName(){
-    Ranger ranger = Ranger.find(this.rangerid);
-    return ranger.getName();
-  }
+  // public String getRangerName(){
+  //   Ranger ranger = Ranger.find(this.rangerid);
+  //   return ranger.getName();
+  // }
 
   public String getAnimalSpecies(){
     Animal animal = Animal.find(this.animalid);

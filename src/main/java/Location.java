@@ -23,6 +23,7 @@ public class Location implements DatabaseManagement {
         .executeUpdate()
         .getKey();
   }
+}
 
   public int getId(){
     return this.id;
@@ -49,6 +50,15 @@ public class Location implements DatabaseManagement {
   public static Location find(int id){
     try(Connection con = DB.sql2o.open()){
       String sql = "SELECT * FROM locations WHERE id=:id";
+      return con.createQuery(sql)
+        .addParameter("id", id)
+        .executeAndFetchFirst(Location.class);
+    }
+  }
+
+  public static Location findMgrs(int id){
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT mgrs FROM locations WHERE id=:id;";
       return con.createQuery(sql)
         .addParameter("id", id)
         .executeAndFetchFirst(Location.class);
@@ -82,7 +92,7 @@ public class Location implements DatabaseManagement {
     }
   }
 
-  public List<AnimalSighting> allSightings(){
+  public List<Sighting> allSightings(){
     try(Connection con = DB.sql2o.open()){
       String sql = "SELECT * FROM sightings WHERE locationid=:id";
       return con.createQuery(sql)

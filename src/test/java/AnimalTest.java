@@ -30,20 +30,20 @@ public class AnimalTest {
   }
 
   @Test
-  public void getHealth_returnsHealthID_1() {
+  public void getHealthid_returnsHealthID_1() {
     Animal testAnimal = animalAlpha;
-    assertEquals(1, testAnimal.getHealth());
+    assertEquals(1, testAnimal.getHealthid());
   }
 
   @Test
-  public void getAge_returnAgeID_3() {
+  public void getAgeid_returnAgeID_3() {
     Animal testAnimal = animalAlpha;
-    assertEquals(3, testAnimal.getAge());
+    assertEquals(3, testAnimal.getAgeid());
   }
 
   @Test
-  public void getGender_returnGenderId_1(){
+  public void getGenderid_returnGenderId_1(){
     Animal testAnimal = animalAlpha;
-    assertEquals(1, testAnimal.getGender());
+    assertEquals(1, testAnimal.getGenderid());
   }
 }

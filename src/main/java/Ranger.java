@@ -22,13 +22,13 @@ public class Ranger implements DatabaseManagement {
         .executeUpdate()
         .getKey();
   }
-
+}
   public int getId(){
     return this.id;
   }
 
   public String getName(){
-    return this.ranger_name;
+    return this.name;
   }
 
   public int getRoster_Number(){
@@ -46,11 +46,11 @@ public class Ranger implements DatabaseManagement {
     }
   }
 
-  public static Ranger find(int _id){
+  public Ranger find(int id){
     try(Connection con = DB.sql2o.open()){
       String sql = "SELECT * FROM rangers WHERE id=:id";
       return con.createQuery(sql)
-        .addParameter("id", id)
+        .addParameter("id", this.id)
         .executeAndFetchFirst(Ranger.class);
     }
   }
@@ -82,7 +82,7 @@ public class Ranger implements DatabaseManagement {
     }
   }
 
-  public List<AnimalSighting> allSightings(){
+  public List<Sighting> allSightings(){
     try(Connection con = DB.sql2o.open()){
       String sql = "SELECT * FROM sightings WHERE rangerid=:id";
       return con.createQuery(sql)

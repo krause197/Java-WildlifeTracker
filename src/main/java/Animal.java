@@ -45,15 +45,15 @@ public class Animal implements DatabaseManagement{
   }
 
   public int getHealthid() {
-    return healthid;
+    return health;
   }
 
   public int getAgeid() {
-    return ageid;
+    return age;
   }
 
   public int getGenderid() {
-    return genderid;
+    return gender;
   }
 
   @Override
@@ -123,7 +123,7 @@ public class Animal implements DatabaseManagement{
       }
     }
 
-    public List<AnimalSighting> allSightings(){
+    public List<Sighting> allSightings(){
       try(Connection con = DB.sql2o.open()){
         String sql = "SELECT * FROM sightings WHERE animalid=:id";
         return con.createQuery(sql)
@@ -141,7 +141,7 @@ public class Animal implements DatabaseManagement{
           .addParameter("age", this.age)
           .addParameter("gender", this.gender)
           .addParameter("endangered", this.endangered)
-          .executeUpdate()
+          .executeUpdate();
       }
     }
 
