@@ -2,24 +2,23 @@ import java.util.List;
 import org.sql2o.*;
 import java.util.ArrayList;
 
-public class Location implements DatabaseManagement {
-
+public class Ranger implements DatabaseManagement {
   private int id;
   private String name;
-  private String mgrs;
+  private int roster_number;
 
-  public Location(String name, String mgrs){
-    if (name.equals("") || mgrs.equals("")){
-      throw new IllegalArgumentException("Input required for Location or Military Grid Reference Coordinate");
+  public Ranger(String name, int roster_number){
+    if (name.equals("") || roster_number < 0001){
+      throw new IllegalArgumentException("Value required for ranger name or roster number");
     }
     this.name = name;
-    this.mgrs = mgrs;
+    this.roster_number = roster_number;
 
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO locations (name, mgrs) VALUES (:name, :mgrs);";
+      String sql = "INSERT INTO rangers (name, roster_number) VALUES (:name, :roster_number);";
       this.id = (int) con.createQuery(sql, true)
         .addParameter("name", this.name)
-        .addParameter("mgrs", this.mgrs)
+        .addParameter("roster_number", this.roster_number)
         .executeUpdate()
         .getKey();
   }
@@ -29,45 +28,46 @@ public class Location implements DatabaseManagement {
   }
 
   public String getName(){
-    return this.name;
+    return this.ranger_name;
   }
 
-  public String getMgrs(){
-    return this.mgrs;
+  public int getRoster_Number(){
+    return this.roster_number;
   }
+
 
   @Override
   public boolean equals(Object otherObject){
-    if(!(otherObject instanceof Location)){
+    if(!(otherObject instanceof Ranger)){
       return false;
     }else{
-      Location newLocation = (Location) otherObject;
-      return newLocation.getId() == this.id;
+      Ranger newRanger = (Ranger) otherObject;
+      return newRanger.getId() == this.id;
     }
   }
 
-  public static Location find(int id){
+  public static Ranger find(int _id){
     try(Connection con = DB.sql2o.open()){
-      String sql = "SELECT * FROM locations WHERE id=:id";
+      String sql = "SELECT * FROM rangers WHERE id=:id";
       return con.createQuery(sql)
         .addParameter("id", id)
-        .executeAndFetchFirst(Location.class);
+        .executeAndFetchFirst(Ranger.class);
     }
   }
 
-  public static List<Location> all(){
+  public static List<Ranger> all(){
     try(Connection con = DB.sql2o.open()){
-      String sql = "SELECT * FROM locations";
-      return con.createQuery(sql).executeAndFetch(Location.class);
+      String sql = "SELECT * FROM rangers";
+      return con.createQuery(sql).executeAndFetch(Ranger.class);
     }
   }
 
   public void update(){
     try(Connection con = DB.sql2o.open()){
-      String sql = "UPDATE locations SET (name=:name, mgrs=:mgrs) WHERE id=:id";
+      String sql = "UPDATE rangers SET (name=:name, roster_number=:roster_number) WHERE id=:id";
       con.createQuery(sql)
         .addParameter("name", this.name)
-        .addParameter("mgrs", this.mgrs)
+        .addParameter("roster_number", this.roster_number)
         .addParameter("id", this.id)
         .executeUpdate();
     }
@@ -75,7 +75,7 @@ public class Location implements DatabaseManagement {
 
   public void delete(){
     try(Connection con = DB.sql2o.open()){
-      String sql = "DELETE FROM locations WHERE id=:id";
+      String sql = "DELETE FROM rangers WHERE id=:id";
       con.createQuery(sql)
         .addParameter("id", this.id)
         .executeUpdate();
@@ -84,11 +84,10 @@ public class Location implements DatabaseManagement {
 
   public List<AnimalSighting> allSightings(){
     try(Connection con = DB.sql2o.open()){
-      String sql = "SELECT * FROM sightings WHERE locationid=:id";
+      String sql = "SELECT * FROM sightings WHERE rangerid=:id";
       return con.createQuery(sql)
         .addParameter("id", this.id)
         .executeAndFetch(Sighting.class);
     }
   }
-
 }
