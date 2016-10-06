@@ -2,85 +2,45 @@ import java.util.List;
 import java.util.Arrays;
 import java.util.ArrayList;
 import org.sql2o.*;
-import java.sql.Timestamp;
 
-public abstract class Item {
-
+public class Animal {
+  public String species;
   public int id;
-  public String title;
-  public int itemtype;
-  public int newestrecord;
+  public int health;
+  public int age;
+  public int gender;
+  public boolean endangered;
 
-  public int getId(){
-    return this.id;
+  public Animal(String species, int health, int age, int gender, boolean endangered) {
+    this.species = species;
+    this.health = health;
+    this.age = age;
+    this.gender = gender;
+    this.endangered = endangered;
   }
 
-  public String getTitle(){
-    return this.title;
+  public String getSpecies() {
+    return species;
   }
 
-  public int getItemType(){
-    return this.itemtype;
+  public boolean getEndangered() {
+    return endangered;
   }
 
-  public String getItemTypeName(){
-    return ItemType.getName(this.itemtype);
+  public int getId() {
+    return id;
   }
 
-  public int getnewestrecord(){
-       return this.newestrecord;
-   }
-
-  public ItemRecord getCurrentRecord(){
-      return ItemRecord.find(this.newestrecord);
+  public int getHealth() {
+    return health;
   }
 
-  // public String getPatron(){
-  //   ItemRecord.find(this.newestrecord);
-  // }
-
-  public List<ItemRecord> getRecords() {
-    try(Connection con = DB.sql2o.open()) {
-      String sql = "SELECT * FROM itemrecords WHERE itemid=:id";
-      return con.createQuery(sql)
-        .addParameter("id", this.id)
-        .executeAndFetch(ItemRecord.class);
-    }
+  public int getAge() {
+    return age;
   }
 
-  // public void updateRecord(int crid){
-  //   try(Connection con = DB.sql2o.open()) {
-  //     String sql = "UPDATE items SET newestrecord = :crid WHERE id = :id";
-  //     con.createQuery(sql)
-  //       .addParameter("crid", crid)
-  //       .addParameter("id", this.id)
-  //       .executeUpdate();
-  //     }
-  // }
-
-  public void deleteItem(){
-    try(Connection con = DB.sql2o.open()) {
-      String sql = "DELETE FROM items WHERE id = :id";
-      con.createQuery(sql)
-        .addParameter("id", this.id)
-        .executeUpdate();
-
-      sql = "DELETE FROM itemrecords WHERE itemid = :id";
-      con.createQuery(sql)
-        .addParameter("id", this.id)
-        .executeUpdate();
-      }
-  }
-
-  @Override
-  public boolean equals(Object otherItem) {
-    if (!(otherItem instanceof Item)) {
-      return false;
-    } else {
-      Item newItem = (Item) otherItem;
-      return this.getTitle().equals(newItem.getTitle()) &&
-             this.getId() == newItem.getId();
-    }
+  public int getGender() {
+    return gender;
   }
 
 }
