@@ -31,7 +31,7 @@ public class Sighting {
         .getKey();
   }
 
-  // Getters/Setters
+
   public int getId(){
     return this.id;
   }

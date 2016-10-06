@@ -44,16 +44,16 @@ public class Animal {
     return id;
   }
 
-  public int getHealth() {
-    return health;
+  public int getHealthid() {
+    return healthid;
   }
 
-  public int getAge() {
-    return age;
+  public int getAgeid() {
+    return ageid;
   }
 
-  public int getGender() {
-    return gender;
+  public int getGenderid() {
+    return genderid;
   }
 
   @Override
@@ -68,7 +68,7 @@ public class Animal {
 
     public static Animal find(int id) {
       try(Connection con = DB.sql2o.open()) {
-        String sql = "SELECT * FROM animals WHERE id=:id";
+        String sql = "SELECT * FROM animals WHERE id=:id;";
         Animal animal = con.createQuery(sql)
           .addParameter("id", id)
           .executeAndFetchFirst(Animal.class);
@@ -78,21 +78,50 @@ public class Animal {
 
     public static List<String> allHealth(){
     try(Connection con = DB.sql2o.open()){
-      String sql = "SELECT * FROM animal_health";
+      String sql = "SELECT * FROM health;";
       return con.createQuery(sql)
         .throwOnMappingFailure(false)
         .executeAndFetch(String.class);
     }
   }
 
+    public static Animal findHealth(int healthid) {
+      try(Connection con = DB.sql2o.open()) {
+        String sql = "SELECT * FROM health WHERE id=:healthid;";
+        Animal health = con.createQuery(sql)
+          .addParameter("healthid", healthid)
+          .executeAndFetchFirst(Animal.class);
+        return health;
+      }
+    }
+
     public static List<String> allAge(){
       try(Connection con = DB.sql2o.open()){
-        String sql = "SELECT * FROM animal_age";
+        String sql = "SELECT * FROM age";
         return con.createQuery(sql)
           .throwOnMappingFailure(false)
           .executeAndFetch(String.class);
     }
   }
+    public static Animal findAge(int ageid) {
+      try(Connection con = DB.sql2o.open()) {
+        String sql = "SELECT * FROM age WHERE id=:ageid;";
+        Animal age = con.createQuery(sql)
+          .addParameter("ageid", ageid)
+          .executeAndFetchFirst(Animal.class);
+        return age;
+      }
+    }
+
+    public static Animal findGender(int genderid) {
+      try(Connection con = DB.sql2o.open()) {
+        String sql = "SELECT * FROM gender WHERE id=:genderid;";
+        Animal gender = con.createQuery(sql)
+          .addParameter("genderid", genderid)
+          .executeAndFetchFirst(Animal.class);
+        return gender;
+      }
+    }
 
     public List<AnimalSighting> allSightings(){
       try(Connection con = DB.sql2o.open()){
