@@ -17,6 +17,19 @@ public class Animal {
     this.age = age;
     this.gender = gender;
     this.endangered = endangered;
+
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "INSERT INTO animals (species, health, age, gender, endangered) VALUES (:species, :health, :age, :gender, :endangered);";
+      this.id = (int) con.createQuery(sql, true)
+        .addParameter("species", this.species)
+        .addParameter("health", this.health)
+        .addParameter("age", this.age)
+        .addParameter("gender", this.gender)
+        .addParameter("endangered", this.endangered)
+        .executeUpdate()
+        .getKey();
+
+    }
   }
 
   public String getSpecies() {
