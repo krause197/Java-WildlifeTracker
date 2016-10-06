@@ -4,7 +4,7 @@ import java.util.List;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
-public class Sighting {
+public class Sighting implements DatabaseManagement{
   private int id;
   private int animalid;
   private int rangerid;
@@ -77,11 +77,11 @@ public class Sighting {
   }
 
   @Override
-  public boolean equals(Object otherSighting){
-    if(!(otherSighting instanceof AnimalSighting)){
+  public boolean equals(Object otherObject){
+    if(!(otherObject instanceof Sighting)){
       return false;
     }else{
-      Sighting newSighting = (Sighting) otherSighting;
+      Sighting newSighting = (Sighting) otherObject;
       return newSighting.getId() == this.id;
     }
   }

@@ -3,7 +3,7 @@ import java.util.Arrays;
 import java.util.ArrayList;
 import org.sql2o.*;
 
-public class Animal {
+public class Animal implements DatabaseManagement{
   public String species;
   public int id;
   public int health;
@@ -57,12 +57,12 @@ public class Animal {
   }
 
   @Override
-    public boolean equals(Object otherAnimal) {
-      if (!(otherAnimal instanceof Animal)) {
+    public boolean equals(Object otherObject) {
+      if (!(otherObject instanceof Animal)) {
         return false;
       } else {
-        Animal newAnimal = (Animal) otherAnimal;
-        return this.getSpecies().equals(newAnimal.getSpecies());
+        Animal newAnimal = (Animal) otherObject;
+        return newAnimal.getId() == this.id;
       }
     }
 
