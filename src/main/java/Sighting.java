@@ -56,24 +56,24 @@ public class Sighting implements DatabaseManagement{
     return this.notes;
   }
 
-  // public String getRangerName(){
-  //   Ranger ranger = Ranger.find(this.rangerid);
-  //   return ranger.getName();
-  // }
+  public String getRangerName(){
+    Ranger ranger = Ranger.find(this.rangerid);
+    return ranger.getName();
+  }
 
   public String getSpecies(){
     Animal animal = Animal.find(this.animalid);
     return animal.getSpecies();
   }
-  // public String findSpecies(int id) {
-  //   try(Connection con = DB.sql2o.open()) {
-  //     String sql = "SELECT species FROM animals WHERE id=:id;";
-  //     Animal animal = con.createQuery(sql)
-  //       .addParameter("id", id)
-  //       .executeAndFetchFirst(Animal.class);
-  //     return animal;
-  //   }
-  // }
+  public String findSpecies(int id) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT species FROM animals WHERE id=:id;";
+      Animal animal = con.createQuery(sql)
+        .addParameter("id", id)
+        .executeAndFetchFirst(Animal.class);
+      return animal;
+    }
+  }
 
   public String getLocationName(){
     Location location = Location.find(this.locationid);

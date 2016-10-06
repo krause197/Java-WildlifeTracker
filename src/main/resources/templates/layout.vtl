@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Epic Library</title>
-    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
-     <link rel='stylesheet' href='/css/site.css'>
+    <title>Mt. Hood National Forest Wildlife Study</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel='stylesheet' href='/app.css'>
   </head>
-  <body>
-    <nav class="navbar navbar-default navbar-fixed-top" id="topnav">
-      <div class="container">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="/">Epic Library</a>
-        </div>
-      </div>
-    </nav>
+  <header class="text-center">
     <div class="container">
-      <div class="jumbotron">
-        #parse( $template )
-      </div>
+      <h1>Mt. Hood National Forest</h1>
+      <ul>
+        <li><a href="/">HOME</a></li>
+        <li><a href="/sightings">ALL WILDLIFE SIGHTINGS</a></li>
+        <li><a href="/rangers">ALL RANGERS</a></li>
+        <li><a href="/animals">ALL ANIMALS</a></li>
+      <ul>
+    </div>
+  </header>
+  <body>
+    <div class="container">
+
+          #parse( $template )
+
     </div>
   </body>
 </html>

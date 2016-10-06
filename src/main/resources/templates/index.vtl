@@ -1,39 +1,41 @@
-<h1>Welcome to Epic Library</h1>
 
-<hr>
-<h2>Our Collections: </h2>
-#if($itemtypes.size() > 0)
+<h1>Welcome to The Mt. Hood National Forest Wildlife Tracker</h1>
+<h3>Tracking wildlife in the Three Sisters Wilderness so we can justify to environmentalists why it is necessary to use sustainable forest management</h3>
+<h3>Help to prevent forest fires by supporting responsible logging in our National Forests!!!</h3>
+
+<div class="row">
+  <h2>Recent Sightings </h2>
   <ul>
-    #foreach ($itemtype in $itemtypes)
-      <li><a href="/$itemtype.getName()">$itemtype.getName()</a></li>
+    #foreach ($sighting in $sightings)
+      <h3><a href="/sightings/$sighting.getId()">$sighting.getSpecies()</a></h3>
+      <p><em>$sighting.getSighting_date()</em></p>
+      <p><em>$sighting.getLocationName()</em></p>
+      <p><em>$sighting.getNotes()</em></p>
+      <p><em>Seen By $sighting.getRangerName()</em></p>
     #end
   </ul>
-#else
-  <p>There are no Item Types yet</p>
-#end
 
-<hr>
-
-
-<hr>
-<h2>Our Patrons: </h2>
-
-#if($patrons.size() > 0)
+  <h2>All Species of Animals Seen</h2>
   <ul>
-    #foreach ($patron in $patrons)
-      <li><a href="/patrons/$patron.getId()">$patron.getName()</a></li>
+    #foreach ($species in $animals)
+      <p><em>$animal.getSpecies()<em><p>
+
+
+<h2>Our Rangers: </h2>
+
+  <ul>
+    #foreach ($ranger in $rangers)
+      <li><a href="/ranger/$ranger.getId()">$ranger.getName()</a></li>
     #end
   </ul>
-#else
-  <p>There are no Patrons yet</p>
-#end
 
-
-<h3>Add a New Patron:</h3>
-<form action="/patrons/new" method="post">
-  <label for="new-patron-name">Name: </label>
-  <input name="new-patron-name" type="text">
-  <label for="new-patron-email">Email: </label>
-  <input name="new-patron-email" type="text">
-  <button type="submit" class="btn btn-success">Add Patron</button>
-</form>
+  <h3>Add a New Ranger:</h3>
+  <h4>Add yourself to become an honorary Ranger of Mt. Hood National Forest</h4>
+  <form action="/ranger/new" method="post">
+    <label for="new-ranger-name">Name: </label>
+    <input name="new-ranger-name" type="text">
+    <label for="new-ranger-roster_number">Roster Number (Last 4 SS#): </label>
+    <input name="new-patron-roster_number" type="text">
+    <button type="submit" class="btn btn-success">Add Ranger</button>
+  </form>
+</div>

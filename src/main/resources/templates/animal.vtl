@@ -1,0 +1,17 @@
+<h2>Animal Sighting Details</h2>
+Species: $animal.getSpecies()
+<br>Animal Identification Number: $animal.getId()
+<br>Endangered?: $animal.getEndangered()
+<br>Health Status: $animal.findHealth()
+<br>Age: $animal.findAge()
+<br>Gender: $animal.findGender()
+
+<h2>All Sightings of This Animal</h2>
+  <ul>
+    #foreach($sighting in $sightings)
+      #if($sighting.allSightings($animal.getId()))
+      #else <p>No Other Sightings of this Animal</p>
+      #end
+    #end
+
+<a href="/sightings/new">ADD NEW SIGHTING</a>
