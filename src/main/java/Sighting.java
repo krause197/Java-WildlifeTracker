@@ -4,7 +4,7 @@ import java.util.List;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
-public class Sighting implements DatabaseManagement{
+public class Sighting {
   private int id;
   private int animalid;
   private int rangerid;
@@ -12,7 +12,7 @@ public class Sighting implements DatabaseManagement{
   private Timestamp sighting_date;
   private String notes;
 
-  public Sighting(int animalid, int rangerid, int locationid, String notes){
+  public Sighting(int rangerid, int animalid, int locationid, String notes){
     this.animalid = animalid;
     this.rangerid = rangerid;
     this.locationid = locationid;
@@ -20,32 +20,33 @@ public class Sighting implements DatabaseManagement{
     this.notes = notes;
 
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO sightings (animalid, rangerid, locationid, sighting_date, notes) VALUES (:animalid, :rangerid, :locationid, now(), :notes);";
+      String sql = "INSERT INTO sightings (rangerid, animalid, locationid, sighting_date, notes) VALUES (:rangerid, :animalid, :locationid, now(), :notes);";
       this.id = (int) con.createQuery(sql, true)
-        .addParameter("animalid", this.animalid)
-        .addParameter("rangerid", this.rangerid)
-        .addParameter("locationid", this.locationid)
-        .addParameter("sighting_date", this.sighting_date)
-        .addParameter("notes", this.notes)
+        .addParameter("animalid", animalid)
+        .addParameter("rangerid", rangerid)
+        .addParameter("locationid", locationid)
+        .addParameter("notes", notes)
         .executeUpdate()
         .getKey();
+    }
+
   }
-}
+
 
   public int getId(){
-    return this.id;
+    return id;
   }
 
   public int getAnimalId(){
-    return this.animalid;
+    return animalid;
   }
 
   public int getRangerId(){
-    return this.rangerid;
+    return rangerid;
   }
 
   public int getLocationId(){
-    return this.locationid;
+    return locationid;
   }
 
   public String getSighting_date(){
@@ -56,24 +57,16 @@ public class Sighting implements DatabaseManagement{
     return this.notes;
   }
 
-  public String getRangerName(){
-    Ranger ranger = Ranger.find(this.rangerid);
-    return ranger.getName();
-  }
+  // public String getRangerName(){
+  //   Ranger ranger = Ranger.find(this.rangerid);
+  //   return ranger.getName();
+  // }
 
   public String getSpecies(){
     Animal animal = Animal.find(this.animalid);
     return animal.getSpecies();
   }
-  public String findSpecies(int id) {
-    try(Connection con = DB.sql2o.open()) {
-      String sql = "SELECT species FROM animals WHERE id=:id;";
-      Animal animal = con.createQuery(sql)
-        .addParameter("id", id)
-        .executeAndFetchFirst(Animal.class);
-      return animal;
-    }
-  }
+
 
   public String getLocationName(){
     Location location = Location.find(this.locationid);
@@ -108,6 +101,24 @@ public class Sighting implements DatabaseManagement{
     try(Connection con = DB.sql2o.open()){
       String sql = "SELECT * FROM sightings";
       return con.createQuery(sql).executeAndFetch(Sighting.class);
+    }
+  }
+
+  public List<Sighting> allAnimalSightings(){
+    try(Connection con = DB.sql2o.open()){
+      String sql = "SELECT * FROM sightings WHERE animalid=:id";
+      return con.createQuery(sql)
+        .addParameter("id", this.id)
+        .executeAndFetch(Sighting.class);
+    }
+  }
+
+  public List<Sighting> allLocationSightings(){
+    try(Connection con = DB.sql2o.open()){
+      String sql = "SELECT * FROM sightings WHERE locationid=:id";
+      return con.createQuery(sql)
+        .addParameter("id", this.id)
+        .executeAndFetch(Sighting.class);
     }
   }
 

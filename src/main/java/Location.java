@@ -2,7 +2,7 @@ import java.util.List;
 import org.sql2o.*;
 import java.util.ArrayList;
 
-public class Location implements DatabaseManagement {
+public class Location {
 
   private int id;
   private String name;

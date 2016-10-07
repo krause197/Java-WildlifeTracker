@@ -2,7 +2,7 @@ import java.util.List;
 import org.sql2o.*;
 import java.util.ArrayList;
 
-public class Ranger implements DatabaseManagement {
+public class Ranger {
   private int id;
   private String name;
   private int roster_number;
@@ -17,8 +17,8 @@ public class Ranger implements DatabaseManagement {
     try(Connection con = DB.sql2o.open()) {
       String sql = "INSERT INTO rangers (name, roster_number) VALUES (:name, :roster_number);";
       this.id = (int) con.createQuery(sql, true)
-        .addParameter("name", this.name)
-        .addParameter("roster_number", this.roster_number)
+        .addParameter("name", name)
+        .addParameter("roster_number", roster_number)
         .executeUpdate()
         .getKey();
   }

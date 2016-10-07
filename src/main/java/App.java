@@ -14,14 +14,14 @@ public class App {
   public static void main(String[] args) {
     staticFileLocation("/public");
     String layout = "templates/layout.vtl";
-}
-  //   get("/", (request, response) -> {
-  //     Map<String, Object> model = new HashMap<String, Object>();
-  //     model.put("template", "templates/index.vtl");
-  //     model.put("itemtypes", ItemType.all());
-  //     model.put("patrons", Patron.all());
-  //     return new ModelAndView(model, layout);
-  //   }, new VelocityTemplateEngine());
+
+    get("/", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      model.put("template", "templates/index.vtl");
+      model.put("rangers", Ranger.all());
+      model.put("sightings", Sighting.all());
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
   //
   //   get("/admin", (request, response) -> {
   //     Map<String, Object> model = new HashMap<String, Object>();
@@ -241,6 +241,7 @@ public class App {
   //     model.put("template", "templates/patron.vtl");
   //     return new ModelAndView(model, layout);
   //   }, new VelocityTemplateEngine());
-  //
+
+}
   // }
 }

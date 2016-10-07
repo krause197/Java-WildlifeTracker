@@ -3,7 +3,7 @@ import java.util.Arrays;
 import java.util.ArrayList;
 import org.sql2o.*;
 
-public class Animal implements DatabaseManagement{
+public class Animal {
   public String species;
   public int id;
   public int health;
@@ -21,11 +21,11 @@ public class Animal implements DatabaseManagement{
     try(Connection con = DB.sql2o.open()) {
       String sql = "INSERT INTO animals (species, health, age, gender, endangered) VALUES (:species, :health, :age, :gender, :endangered);";
       this.id = (int) con.createQuery(sql, true)
-        .addParameter("species", this.species)
-        .addParameter("health", this.health)
-        .addParameter("age", this.age)
-        .addParameter("gender", this.gender)
-        .addParameter("endangered", this.endangered)
+        .addParameter("species", species)
+        .addParameter("health", health)
+        .addParameter("age", age)
+        .addParameter("gender", gender)
+        .addParameter("endangered", endangered)
         .executeUpdate()
         .getKey();
 
@@ -65,6 +65,16 @@ public class Animal implements DatabaseManagement{
         return newAnimal.getId() == this.id;
       }
     }
+
+  public String findSpecies(int id) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT species FROM animals WHERE id=:id;";
+      String species = con.createQuery(sql)
+        .addParameter("id", id)
+        .executeAndFetchFirst(String.class);
+      return species;
+    }
+  }
 
     public static Animal find(int id) {
       try(Connection con = DB.sql2o.open()) {
@@ -120,15 +130,6 @@ public class Animal implements DatabaseManagement{
           .addParameter("genderid", genderid)
           .executeAndFetchFirst(Animal.class);
         return gender;
-      }
-    }
-
-    public List<Sighting> allSightings(){
-      try(Connection con = DB.sql2o.open()){
-        String sql = "SELECT * FROM sightings WHERE animalid=:id";
-        return con.createQuery(sql)
-          .addParameter("id", this.id)
-          .executeAndFetch(Sighting.class);
       }
     }
 

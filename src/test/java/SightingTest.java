@@ -8,39 +8,46 @@ import java.text.SimpleDateFormat;
 
 public class SightingTest {
 
-  Sighting sightingAlpha = new Sighting(1, 2, 2, "eating grass");
-  Sighting sightingBravo = new Sighting(2, 1, 3, "foraging");
+  // Sighting sightingAlpha = new Sighting(1, 2, 2, "eating grass");
+  // Sighting sightingBravo = new Sighting(2, 1, 3, "foraging");
 
   @Rule
   public DatabaseRule database = new DatabaseRule();
 
   @Test
   public void Sighting_instantiates_true() {
-    Sighting testSighting = sightingAlpha;
-    assertEquals(true, testSighting instanceof Sighting);
+    Sighting sightingAlpha = new Sighting(1, 2, 2, "eating grass");
+    assertEquals(true, sightingAlpha instanceof Sighting);
   }
 
   @Test
   public void getName_returnsCorrectAnimalID_1() {
-    Sighting testSighting = sightingAlpha;
-    assertEquals(1, testSighting.getAnimalId());
+    Sighting sightingAlpha = new Sighting(1, 2, 2, "eating grass");
+    assertEquals(2, sightingAlpha.getAnimalId());
   }
 
   @Test
   public void getRangerId_returnsCorrectRangerId_2() {
-    Sighting testSighting = sightingAlpha;
-    assertEquals(2, testSighting.getRangerId());
+    Sighting sightingAlpha = new Sighting(1, 2, 2, "eating grass");
+    assertEquals(1, sightingAlpha.getRangerId());
   }
 
   @Test
   public void getLocationId_returnsLocationId_2() {
-    Sighting testSighting = sightingAlpha;
-    assertEquals(3, testSighting.getLocationId());
+    Sighting sightingAlpha = new Sighting(1, 2, 2, "eating grass");
+    assertEquals(2, sightingAlpha.getLocationId());
   }
 
   @Test
   public void getNotes_returnsNotes_eatinggrass() {
-    Sighting testSighting = sightingAlpha;
-    assertEquals("eating grass", testSighting.getNotes());
+    Sighting sightingAlpha = new Sighting(1, 2, 2, "eating grass");
+    assertEquals("eating grass", sightingAlpha.getNotes());
   }
-}
+} 
+//   @Test
+//   public void save_savestodatabase_true() {
+//     Sighting sightingAlpha = new Sighting(1, 2, 2, "eating grass");
+//     sightingAlpha.save();
+//     assertEquals(true, Sighting.all().get(0).equals(sightingAlpha));
+//   }
+// }
