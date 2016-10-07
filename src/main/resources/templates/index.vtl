@@ -1,6 +1,6 @@
 
 <h1>Welcome to The Mt. Hood National Forest Wildlife Tracker</h1>
-<h3>Tracking wildlife in the Three Sisters Wilderness so we can justify to environmentalists why it is necessary to use sustainable forest management</h3>
+<h3>Tracking wildlife in the Mt. Hood National Forest so we can justify to environmentalists why it is necessary to use sustainable forest management</h3>
 <h3>Help to prevent forest fires by supporting responsible logging in our National Forests!!!</h3>
 
 <div class="row">
@@ -15,11 +15,14 @@
     #end
   </ul>
 
+  <a href="/sighting/new">ADD NEW SIGHTING</a>
+
   <h2>All Species of Animals Seen</h2>
   <ul>
     #foreach ($species in $animals)
       <p><em>$animal.getSpecies()<em><p>
-
+    #end
+  </ul>
 
 <h2>Our Rangers: </h2>
 
@@ -32,10 +35,10 @@
   <h3>Add a New Ranger:</h3>
   <h4>Add yourself to become an honorary Ranger of Mt. Hood National Forest</h4>
   <form action="/ranger/new" method="post">
-    <label for="new-ranger-name">Name: </label>
-    <input name="new-ranger-name" type="text">
-    <label for="new-ranger-roster_number">Roster Number (Last 4 SS#): </label>
-    <input name="new-patron-roster_number" type="text">
+    <label for="name">Name: </label>
+    <input name="name" type="text">
+    <label for="roster_number">Roster Number (Last 4 SS#): </label>
+    <input name="roster_number" type="text">
     <button type="submit" class="btn btn-success">Add Ranger</button>
   </form>
 </div>

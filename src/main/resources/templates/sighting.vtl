@@ -2,47 +2,59 @@
 <h1>Add a New Sighting</h1>
   <div class="form">
     <form action="/sighting/new" method="post">
+      <div class="form-group">
         <div class="form-group">
           <label for="Ranger">Ranger:  (If you don't see yourself, <a href="/">Add a Ranger Here</a>)</label>
           <select id="ranger" name="ranger" type="text">
             #foreach($ranger in $rangers)
               <option value="$ranger.getId()">$ranger.getName()</option>
+            #end
           </select>
         </div>
-        <div class="form-group">
+
           <label for="species">Animal Species:</label>
           <input id="species" name="species" type="text" class="form-control">
 
+        <div class="form-group">
           <label for="health">Health: </label>
           <select id="health" name="health" type="text">
             #foreach($animal.allHealth())
               <option value="$animal.getHealthid()">$animal.findHealth()</option>
+            #end
           </select>
+        </div>
 
+        <div class="form-group">
           <label for="endangered">Endangered: </label>
           <select id="endangered" name="endangered" type="boolean">
               <option value="True">True</option>
               <option value="False">False</option>
           </select>
+        </div>
 
+        <div class="form-group">
           <label for="age">Age: </label>
           <select id="age" name="age" type="text">
             #foreach($animal.allAge())
               <option value="$animal.getAgeid()">$animal.findAge()</option>
+            #end
           </select>
+        </div>
 
+        <div class="form-group">
           <label for="gender">Gender:  </label>
           <select id="gender" name="gender" type="text">
             #foreach($gender in $genders)
               <option value="$animal.getGenderid()">$animal.findGender()</option>
+            #end
           </select>
-
-          <div class="form-group">
-            <label for="location_name">Location Name:</label>
-            <input id="location_name" name="location_name" type="text" class="form-control">
-            <label for="location_mgrs">Location Military Grid Coordinate:</label>
-            <input id="location_mgrs" name="location_mgrs" type="text" class="form-control">
         </div>
+
+          <label for="location_name">Location Name:</label>
+          <input id="location_name" name="location_name" type="text" class="form-control">
+          <label for="location_mgrs">Location Military Grid Coordinate:</label>
+          <input id="location_mgrs" name="location_mgrs" type="text" class="form-control">
+      </div>
       <button class="btn btn-info" type="submit">Add New Sighting</button>
     </form>
   </div>

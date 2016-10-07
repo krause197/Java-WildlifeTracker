@@ -66,6 +66,15 @@ public class Animal {
       }
     }
 
+  public static List<String> allSpecies(){
+  try(Connection con = DB.sql2o.open()){
+    String sql = "SELECT species FROM animals;";
+    return con.createQuery(sql)
+      .throwOnMappingFailure(false)
+      .executeAndFetch(String.class);
+  }
+}
+
   public String findSpecies(int id) {
     try(Connection con = DB.sql2o.open()) {
       String sql = "SELECT species FROM animals WHERE id=:id;";
@@ -107,7 +116,7 @@ public class Animal {
 
     public static List<String> allAge(){
       try(Connection con = DB.sql2o.open()){
-        String sql = "SELECT * FROM age";
+        String sql = "SELECT * FROM age;";
         return con.createQuery(sql)
           .throwOnMappingFailure(false)
           .executeAndFetch(String.class);
@@ -123,9 +132,18 @@ public class Animal {
       }
     }
 
+    public static List<String> allGender(){
+      try(Connection con = DB.sql2o.open()){
+        String sql = "SELECT gender FROM animals;";
+        return con.createQuery(sql)
+          .throwOnMappingFailure(false)
+          .executeAndFetch(String.class);
+    }
+  }
+
     public static Animal findGender(int genderid) {
       try(Connection con = DB.sql2o.open()) {
-        String sql = "SELECT * FROM gender WHERE id=:genderid;";
+        String sql = "SELECT gender FROM animals WHERE id=:genderid;";
         Animal gender = con.createQuery(sql)
           .addParameter("genderid", genderid)
           .executeAndFetchFirst(Animal.class);

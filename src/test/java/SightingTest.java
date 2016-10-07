@@ -4,9 +4,7 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.text.SimpleDateFormat;
-
 public class SightingTest {
 
   Sighting sightingAlpha = new Sighting(1, 2, 2, "eating grass");

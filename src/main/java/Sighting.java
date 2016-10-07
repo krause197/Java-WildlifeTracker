@@ -32,7 +32,6 @@ public class Sighting {
 
   }
 
-
   public int getId(){
     return id;
   }
